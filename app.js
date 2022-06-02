@@ -75,7 +75,7 @@ function generateUrl() {
     return result
   }
 
-  let port = process.env.PORT
+  var port = process.env.PORT
   if (port==null||port==""){
     port=8080
   }
