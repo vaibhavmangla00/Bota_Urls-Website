@@ -36,20 +36,20 @@ app.post("/",function (req,res) {
         newUrlPair.save()
         res.render("index",{shortUrlforWebsite:checkedUrl})
             
-          }
-        // Check URL should not exist in the database
-        
+          }        
     })
 
 function checkDuplicateUrl(urlForChecking){
     Url.findOne({shortUrl:urlForChecking},function (err,duplicateUrlPair){
-        if(!err){
+        if(err){
+            console.log(err)
+        }else{
             if(duplicateUrlPair){
                 console.log("something")
                 newshorturl = 'https://botaurls.herokuapp.com/'+generateUrl()
                 return checkDuplicateUrl(newshorturl)
             }
-        }
+        }  
     })
     return urlForChecking
 }
