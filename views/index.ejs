@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Url Shortener</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar container">
+        <h1 class="nav-title"><a href="/"> BOTA Urls</a></h1>
+        <p class="nav-subtitle"><a href="/">Best.Of.The.All Urls</a> </p>
+    </nav>
+    <form action="/" method="post" class="form">
+        <label for="longurl">Enter your url here</label>
+        <input type="text" id="longurl" name="longUrl" autocomplete="off">
+        <button type="submit">Submit</button>
+    </form>
+
+    <% if (shortUrlforWebsite.length!=0){ %>
+    <div class="botaurl container">
+        <h2>Here's your short url : </h2>
+        <p><%=shortUrlforWebsite%></p>
+    </div>
+    <% } %>
+
+    <footer class="footer">
+        <p>Made with ❤️ by Vaibhav Mangla</p>
+    </footer>
+</body>
+
+</html>
