@@ -17,9 +17,10 @@ const urlSchema={
 
 const Url = mongoose.model("Url",urlSchema)
 
+
 app.get('/',function (req,res) {
     const emptyurl = ''
-    res.render("index",{shortUrlforWebsite:emptyurl})
+    res.render("index",{shortUrl:emptyurl})
   })
 
 app.post("/",function (req,res) {
@@ -27,35 +28,18 @@ app.post("/",function (req,res) {
     if (longurl.length==0){
         res.redirect('/')
     }else{
-        var shorturl = 'https://botaurls.herokuapp.com/'+generateUrl()
-        var checkedUrl = checkDuplicateUrl(shorturl)
+        const shorturl = 'http://localhost:8080/'+generateUrl()
         const newUrlPair = new Url({
-            shortUrl:checkedUrl,
+            shortUrl:shorturl,
             longUrl:longurl
         })
         newUrlPair.save()
-        res.render("index",{shortUrlforWebsite:checkedUrl})
-            
-          }        
-    })
-
-function checkDuplicateUrl(urlForChecking){
-    Url.findOne({shortUrl:urlForChecking},function (err,duplicateUrlPair){
-        if(err){
-            console.log(err)
-        }else{
-            if(duplicateUrlPair){
-                console.log("something")
-                newshorturl = 'https://botaurls.herokuapp.com/'+generateUrl()
-                return checkDuplicateUrl(newshorturl)
-            }
-        }  
-    })
-    return urlForChecking
-}
+        res.render("index",{shortUrl:shorturl})
+    }
+  })
 
 app.get('/:shortUrl',function (req,res) {
-    const reqUrl = 'https://botaurls.herokuapp.com/'+req.params.shortUrl
+    const reqUrl = 'http://localhost:8080/'+req.params.shortUrl
     Url.findOne({shortUrl:reqUrl},function (err,foundUrlPair) {
         if(err){
             console.log(err)
@@ -75,11 +59,6 @@ function generateUrl() {
     return result
   }
 
-  var port = process.env.PORT
-  if (port==null||port==""){
-    port=8080
-  }
-  app.listen(port,function () {
-      console.log("Server Started")
-  })
-  
+app.listen(8080,function () { 
+    console.log("Server Started")
+ })
